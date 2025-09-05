@@ -84,9 +84,11 @@ const HeroSection = ({ projectData, scrollToSection }: HeroSectionProps) => {
 
           <div className="relative h-[500px] rounded-2xl overflow-hidden border border-gray-700 shadow-2xl animate-fadeIn animation-delay-500">
             <Image
-              src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+              src={projectData.coverImage}
               alt="Email Automation Project"
               fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-700 hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-lime-400/30 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>

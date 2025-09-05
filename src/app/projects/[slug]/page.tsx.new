@@ -30,14 +30,14 @@ export default function ProjectDetails({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [projectData, setProjectData] = useState<Post | null>(null);
-
+  
   // Fetch project data
   useEffect(() => {
     async function fetchProject() {
       try {
         setLoading(true);
         const res = await fetch(`/api/projects/${resolvedParams.slug}`);
-
+        
         if (!res.ok) {
           if (res.status === 404) {
             throw new Error("Project not found");
@@ -45,111 +45,80 @@ export default function ProjectDetails({
             throw new Error("Failed to fetch project");
           }
         }
-
+        
         const data = await res.json();
-
+        
         // Transform data to match the Post interface
         const project = data.project;
-
+        
         // Map the DB model to the Post interface required by components
         const mappedProject: Post = {
-          coverImage: project.coverImage,
           title: project.title,
           slug: project.slug,
           subtitle: project.excerpt,
           description: project.description,
-          completedDate: new Date(project.publishedAt).toLocaleDateString(
-            "en-US",
-            {
-              year: "numeric",
-              month: "long",
-            }
-          ),
-          duration: project.duration || "3 months",
-          industry: project.industry || "Technology",
+          completedDate: new Date(project.publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+          }),
+          duration: "3 months", // This is hardcoded as it's not in DB schema
+          industry: "Technology", // This is hardcoded as it's not in DB schema
           tags: project.technologies || [],
-          challenge: project.challenge || project.description,
-          solution: project.solution || project.description,
-          implementation: project.implementation || project.description,
+          challenge: project.description, // Use description as challenge since we don't have a separate field
+          solution: project.description, // Use description as solution since we don't have a separate field
+          implementation: project.description, // Use description as implementation since we don't have a separate field
           technologies: project.technologies || [],
-          team: project.team || ["Project Team"],
+          team: ["Project Team"], // Hardcoded as it's not in DB schema
           client: project.client,
-          features:
-            project.features?.map((feature: string) => ({
-              icon: "fas fa-check", // Default icon as it's not in DB schema
-              title: feature,
-              description: feature,
-            })) || [],
-          process:
-            project.process?.map(
-              (step: {
-                title: string;
-                description: string;
-                image?: string;
-              }) => ({
-                icon: "fas fa-arrow-right", // Default icon
-                title: step.title,
-                description: step.description,
-              })
-            ) || [],
+          features: project.features?.map((feature: string) => ({
+            icon: "fas fa-check",  // Default icon as it's not in DB schema
+            title: feature,
+            description: feature,
+          })) || [],
+          process: project.process?.map((step: any) => ({
+            icon: "fas fa-arrow-right", // Default icon
+            title: step.title,
+            description: step.description,
+          })) || [],
           gallery: project.gallery || [],
-          results: project.results?.map(
-            (result: { title: string; value: string; icon?: string }) => ({
-              value: parseInt(result.value) || 0,
-              label: result.title,
-            })
-          ) || [
+          results: project.results?.map((result: any) => ({
+            value: parseInt(result.value) || 0,
+            label: result.title,
+          })) || [
             { value: 85, label: "Success Rate" },
             { value: 90, label: "Client Satisfaction" },
             { value: 75, label: "Efficiency Increase" },
             { value: 65, label: "Cost Reduction" },
           ],
-          testimonial: project.testimonial
-            ? {
-                content: project.testimonial.content,
-                author: project.testimonial.author,
-                position: project.testimonial.position,
-                initials: project.testimonial.author
-                  ? project.testimonial.author
-                      .split(" ")
-                      .map((n: string) => n[0])
-                      .join("")
-                  : "AA",
-              }
-            : {
-                content: "Great work!",
-                author: "Client",
-                position: "Position",
-                initials: "CL",
-              },
-          relatedProjects: project.relatedProjects
-            ? project.relatedProjects.map(
-                (related: {
-                  title: string;
-                  excerpt: string;
-                  coverImage: string;
-                }) => ({
-                  title: related.title,
-                  description: related.excerpt,
-                  image: related.coverImage,
-                })
-              )
-            : [],
+          testimonial: project.testimonial ? {
+            content: project.testimonial.content,
+            author: project.testimonial.author,
+            position: project.testimonial.position,
+            initials: project.testimonial.author ? project.testimonial.author.split(" ").map((n: string) => n[0]).join("") : "AA",
+          } : {
+            content: "Great work!",
+            author: "Client",
+            position: "Position",
+            initials: "CL",
+          },
+          relatedProjects: project.relatedProjects ? project.relatedProjects.map((related: any) => ({
+            title: related.title,
+            description: related.excerpt,
+            image: related.coverImage,
+          })) : [],
         };
-
+        
         setProjectData(mappedProject);
         setError(null);
       } catch (err) {
         console.error("Error fetching project:", err);
-        setError(
-          err instanceof Error ? err.message : "An unknown error occurred"
-        );
+        setError(err instanceof Error ? err.message : "An unknown error occurred");
         setProjectData(null);
       } finally {
         setLoading(false);
       }
     }
-
+    
     fetchProject();
   }, [resolvedParams.slug]);
 
@@ -194,17 +163,15 @@ export default function ProjectDetails({
               const newCounters = [...prev];
               let allDone = true;
 
-              if (projectData && projectData.results) {
-                for (let i = 0; i < projectData.results.length; i++) {
-                  if (newCounters[i] < projectData.results[i].value) {
-                    newCounters[i] += Math.ceil(
-                      projectData.results[i].value / 50
-                    );
-                    allDone = false;
-                  }
-                  if (newCounters[i] >= projectData.results[i].value) {
-                    newCounters[i] = projectData.results[i].value;
-                  }
+              for (let i = 0; i < projectData.results.length; i++) {
+                if (newCounters[i] < projectData.results[i].value) {
+                  newCounters[i] += Math.ceil(
+                    projectData.results[i].value / 50
+                  );
+                  allDone = false;
+                }
+                if (newCounters[i] >= projectData.results[i].value) {
+                  newCounters[i] = projectData.results[i].value;
                 }
               }
 
@@ -222,18 +189,16 @@ export default function ProjectDetails({
       { threshold: 0.1 }
     );
 
-    const currentCountersRef = countersRef.current;
-
-    if (currentCountersRef) {
-      observer.observe(currentCountersRef);
+    if (countersRef.current) {
+      observer.observe(countersRef.current);
     }
 
     return () => {
-      if (currentCountersRef) {
-        observer.unobserve(currentCountersRef);
+      if (countersRef.current) {
+        observer.unobserve(countersRef.current);
       }
     };
-  }, [loading, projectData]);
+  }, [loading, projectData?.results]);
 
   // Loading state
   if (loading) {
@@ -276,7 +241,7 @@ export default function ProjectDetails({
             Project Not Found
           </h2>
           <p className="text-gray-300 mb-6">
-            The project you are looking for does not exist or has been removed.
+            The project you're looking for doesn't exist or has been removed.
           </p>
           <Link
             href="/#portfolio"
@@ -294,12 +259,6 @@ export default function ProjectDetails({
       {/* Hero Section */}
       <HeroSection
         projectData={projectData}
-        scrollToSection={(section) => {
-          const element = document.getElementById(section);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        }}
       />
 
       {/* Detail Section */}
@@ -318,7 +277,7 @@ export default function ProjectDetails({
       <ResultSection
         projectData={projectData}
         counters={counters}
-        counterRef={countersRef}
+        countersRef={countersRef}
       />
 
       {/* Testimonial Section */}
@@ -327,10 +286,9 @@ export default function ProjectDetails({
       )}
 
       {/* Related Projects */}
-      {projectData.relatedProjects &&
-        projectData.relatedProjects.length > 0 && (
-          <RelatedProject projectData={projectData} />
-        )}
+      {projectData.relatedProjects && projectData.relatedProjects.length > 0 && (
+        <RelatedProject projectData={projectData} />
+      )}
 
       {/* Call to Action */}
       <CtaSection />
@@ -339,7 +297,7 @@ export default function ProjectDetails({
       <Lightbox
         isOpen={isLightboxOpen}
         onClose={closeLightbox}
-        imageSrc={currentImage}
+        image={currentImage}
       />
 
       {/* Back to Top Button */}

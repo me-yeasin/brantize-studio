@@ -18,6 +18,7 @@ const BlogContentSection = ({ post }: ContentSectionProps) => {
                 src={post.coverImage}
                 alt={post.title}
                 fill
+                priority
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
               />
@@ -53,6 +54,7 @@ const BlogContentSection = ({ post }: ContentSectionProps) => {
                       src={post.authorImage}
                       alt={post.author}
                       width={64}
+                      priority
                       height={64}
                       className="object-cover"
                     />

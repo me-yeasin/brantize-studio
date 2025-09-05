@@ -43,13 +43,13 @@ const DetailSection = ({ projectData }: DetailSectionProps) => {
               <p className="text-gray-400 text-lg leading-relaxed mb-4">
                 {projectData.solution}
               </p>
-              <p className="text-gray-400 text-lg leading-relaxed">
+              {/* <p className="text-gray-400 text-lg leading-relaxed">
                 The solution integrates seamlessly with TechCorps existing CRM
                 and ticketing systems, ensuring a smooth workflow for human
                 agents when escalation is needed. It includes features like
                 sentiment analysis, priority detection, and automatic routing to
                 the appropriate departments.
-              </p>
+              </p> */}
             </div>
 
             <div>

@@ -33,6 +33,7 @@ const BlogHeroSection = ({ post }: HeroSectionProps) => {
                     src={post.authorImage}
                     alt={post.author}
                     width={40}
+                    priority
                     height={40}
                     className="w-full h-full object-cover"
                   />

@@ -30,6 +30,12 @@ interface Project {
     position: string;
     image?: string;
   };
+  duration: string;
+  industry: string;
+  team: string[];
+  challenge: string;
+  solution: string;
+  implementation: string;
   featured: boolean;
   publishedAt?: Date;
   updatedAt?: Date;
@@ -72,9 +78,16 @@ export default function Projects() {
       position: "",
       image: "",
     },
+    duration: "",
+    industry: "",
+    team: [],
+    challenge: "",
+    solution: "",
+    implementation: "",
     featured: false,
   });
   const [technology, setTechnology] = useState("");
+  const [teamMember, setTeamMember] = useState("");
   const [galleryUrl, setGalleryUrl] = useState("");
   const [feature, setFeature] = useState("");
   const [processStep, setProcessStep] = useState<{
@@ -242,6 +255,24 @@ export default function Projects() {
     });
   };
 
+  // Handle team members
+  const addTeamMember = () => {
+    if (teamMember && !formData.team?.includes(teamMember)) {
+      setFormData({
+        ...formData,
+        team: [...(formData.team || []), teamMember],
+      });
+      setTeamMember("");
+    }
+  };
+
+  const removeTeamMember = (memberToRemove: string) => {
+    setFormData({
+      ...formData,
+      team: formData.team?.filter((m) => m !== memberToRemove),
+    });
+  };
+
   // Handle gallery images
   const addGalleryImage = () => {
     if (galleryUrl) {
@@ -379,6 +410,12 @@ export default function Projects() {
           author: "",
           position: "",
         },
+        duration: "",
+        industry: "",
+        team: [],
+        challenge: "",
+        solution: "",
+        implementation: "",
         featured: false,
       });
     } catch (error) {
@@ -636,6 +673,34 @@ export default function Projects() {
                 />
               </div>
 
+              {/* Duration */}
+              <div>
+                <label className="block text-gray-300 mb-2">
+                  Project Duration
+                </label>
+                <input
+                  type="text"
+                  name="duration"
+                  value={formData.duration}
+                  onChange={handleInputChange}
+                  className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400"
+                  placeholder="e.g. 3 months, 6 weeks"
+                />
+              </div>
+
+              {/* Industry */}
+              <div>
+                <label className="block text-gray-300 mb-2">Industry</label>
+                <input
+                  type="text"
+                  name="industry"
+                  value={formData.industry}
+                  onChange={handleInputChange}
+                  className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400"
+                  placeholder="e.g. Technology, Healthcare"
+                />
+              </div>
+
               {/* Featured */}
               <div className="flex items-center">
                 <label className="flex items-center cursor-pointer">
@@ -741,6 +806,44 @@ export default function Projects() {
                 </div>
               </div>
 
+              {/* Team Members */}
+              <div className="col-span-2">
+                <label className="block text-gray-300 mb-2">Team Members</label>
+                <div className="flex mb-2">
+                  <input
+                    type="text"
+                    value={teamMember}
+                    onChange={(e) => setTeamMember(e.target.value)}
+                    className="flex-grow p-3 bg-gray-800/50 border border-gray-700 rounded-l-lg text-white focus:outline-none focus:border-lime-400"
+                    placeholder="Add a team member"
+                  />
+                  <button
+                    type="button"
+                    onClick={addTeamMember}
+                    className="px-4 bg-gray-700 rounded-r-lg hover:bg-gray-600 transition-colors"
+                  >
+                    Add
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {formData.team?.map((member, i) => (
+                    <span
+                      key={i}
+                      className="bg-gray-700 px-3 py-1 rounded-full text-sm flex items-center"
+                    >
+                      {member}
+                      <button
+                        type="button"
+                        onClick={() => removeTeamMember(member)}
+                        className="ml-2 text-gray-400 hover:text-red-400"
+                      >
+                        &times;
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               {/* Gallery Images */}
               <div className="col-span-2">
                 <label className="block text-gray-300 mb-2">
@@ -770,6 +873,7 @@ export default function Projects() {
                         alt={`Gallery ${i + 1}`}
                         className="object-cover rounded-lg"
                         fill
+                        priority
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
                       <button
@@ -820,6 +924,46 @@ export default function Projects() {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* Challenge */}
+              <div className="col-span-2">
+                <label className="block text-gray-300 mb-2">
+                  Project Challenge
+                </label>
+                <textarea
+                  name="challenge"
+                  value={formData.challenge}
+                  onChange={handleInputChange}
+                  className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400 min-h-[120px]"
+                  placeholder="Describe the challenges faced in this project"
+                />
+              </div>
+
+              {/* Solution */}
+              <div className="col-span-2">
+                <label className="block text-gray-300 mb-2">Our Solution</label>
+                <textarea
+                  name="solution"
+                  value={formData.solution}
+                  onChange={handleInputChange}
+                  className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400 min-h-[120px]"
+                  placeholder="Describe the solution provided for the project"
+                />
+              </div>
+
+              {/* Implementation */}
+              <div className="col-span-2">
+                <label className="block text-gray-300 mb-2">
+                  Implementation Process
+                </label>
+                <textarea
+                  name="implementation"
+                  value={formData.implementation}
+                  onChange={handleInputChange}
+                  className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400 min-h-[120px]"
+                  placeholder="Describe how the solution was implemented"
+                />
               </div>
 
               {/* Process Steps */}

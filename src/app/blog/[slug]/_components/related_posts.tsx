@@ -31,6 +31,7 @@ const RelatedPosts = ({ post }: RelatedPostsProps) => {
                   src={relatedPost.coverImage}
                   alt={relatedPost.title}
                   fill
+                  priority
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                 />

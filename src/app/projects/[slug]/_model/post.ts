@@ -19,6 +19,7 @@ export interface Post {
   results: Result[];
   testimonial: Testimonial;
   relatedProjects: RelatedProject[];
+  coverImage: string;
 }
 
 interface Feature {

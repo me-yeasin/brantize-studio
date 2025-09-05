@@ -102,6 +102,7 @@ const Blog = () => {
                         }
                         className="w-full h-full object-cover"
                         fill
+                        priority
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     )}
@@ -164,6 +165,7 @@ const Blog = () => {
                         alt={post.title}
                         className="w-full h-full object-cover"
                         fill
+                        priority
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     )}

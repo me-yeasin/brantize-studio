@@ -47,6 +47,7 @@ const Lightbox = ({ isOpen, imageSrc, onClose }: LightboxProps) => {
           alt="Project gallery"
           width={500}
           height={500}
+          priority
           className="max-w-full max-h-[90vh] object-contain rounded-lg"
           onClick={(e) => e.stopPropagation()}
         />

@@ -104,6 +104,7 @@ const Portfolio = () => {
                         src={item.coverImage}
                         alt={item.title}
                         fill
+                        priority
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover"
                       />

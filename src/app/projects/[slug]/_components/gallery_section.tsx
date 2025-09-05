@@ -34,6 +34,7 @@ const GallerySection = ({ projectData, openLightbox }: GallerySectionProps) => {
                 src={image}
                 alt={`Gallery Image ${index + 1}`}
                 fill
+                priority
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

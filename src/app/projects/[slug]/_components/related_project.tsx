@@ -33,6 +33,7 @@ const RelatedProject = ({ projectData }: RealatedProjectProps) => {
                   src={project.image}
                   alt={project.title}
                   fill
+                  priority
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>

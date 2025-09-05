@@ -26,6 +26,12 @@ export interface IProject extends Document {
     position: string;
     image?: string;
   };
+  duration: string;
+  industry: string;
+  team: string[];
+  challenge: string;
+  solution: string;
+  implementation: string;
   publishedAt: Date;
   updatedAt: Date;
   featured: boolean;
@@ -62,6 +68,12 @@ const ProjectSchema: Schema = new Schema(
       position: { type: String },
       image: { type: String },
     },
+    duration: { type: String, default: "3 months" },
+    industry: { type: String, default: "Technology" },
+    team: [{ type: String }],
+    challenge: { type: String },
+    solution: { type: String },
+    implementation: { type: String },
     publishedAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     featured: { type: Boolean, default: false },
