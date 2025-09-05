@@ -1,4 +1,3 @@
-import AuthModal from "../overlays/auth_modal";
 import About from "./_components/about";
 import Blog from "./_components/blog";
 import Contact from "./_components/contact";
@@ -15,7 +14,6 @@ export default function Home() {
       <Blog />
       <About />
       <Contact />
-      <AuthModal />
     </div>
   );
 }

@@ -67,24 +67,12 @@ const Header = () => {
           </ul>
         </nav>
 
-        <div className="flex space-x-4">
-          <button
-            onClick={() =>
-              (document.getElementById("authModal")!.style.display = "flex")
-            }
-            className="px-4 py-2 rounded-full font-medium border border-gray-700 text-white hover:bg-gray-800/50 hover:border-lime-400 hover:text-lime-400 transition-all"
-          >
-            Log In
-          </button>
-          <button
-            onClick={() =>
-              (document.getElementById("authModal")!.style.display = "flex")
-            }
-            className="px-4 py-2 rounded-full font-medium brand-gradient-for-bg text-gray-900 shadow-lg shadow-purple-600/20 hover:shadow-purple-600/40 hover:-translate-y-0.5 transition-all"
-          >
-            Sign Up
-          </button>
-        </div>
+        <button
+          onClick={() => scrollToSection("contact")}
+          className="px-6 py-2 rounded-full font-medium brand-gradient-for-bg text-gray-900 shadow-lg shadow-purple-600/20 hover:shadow-purple-600/40 hover:-translate-y-0.5 transition-all"
+        >
+          Get Started
+        </button>
       </div>
     </header>
   );

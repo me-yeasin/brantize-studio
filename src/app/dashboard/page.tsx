@@ -1,31 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import Analytics from "./_components/analytics";
 import Blogs from "./_components/blogs";
-import Overview from "./_components/overview";
 import Projects from "./_components/projects";
-import Settings from "./_components/settings";
+import Services from "./_components/services";
 import Sidebar from "./_components/sidebar";
 
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("blogs");
 
   // Function to render the active tab content
   const renderTabContent = () => {
     switch (activeTab) {
-      case "overview":
-        return <Overview />;
       case "blogs":
         return <Blogs />;
       case "projects":
         return <Projects />;
-      case "analytics":
-        return <Analytics />;
-      case "settings":
-        return <Settings />;
+      case "services":
+        return <Services />;
       default:
-        return <Overview />;
+        return <Blogs />;
     }
   };
 
