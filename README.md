@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project for Brandtize Studio, a creative agency specializing in brand identity and digital marketing.
 
 ## Getting Started
 
@@ -16,9 +16,32 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy the `.env.local.example` file to `.env.local` and update it with your credentials:
+
+```bash
+cp .env.local.example .env.local
+```
+
+### Email Configuration (EmailJS)
+
+The contact form uses EmailJS to send emails. Follow these steps to set it up:
+
+1. Create a free account at [EmailJS](https://www.emailjs.com/)
+2. Create a new email service (Gmail, Outlook, etc.)
+3. Create a new email template with the following variables:
+   - `{{name}}` - The sender's name
+   - `{{email}}` - The sender's email
+   - `{{company}}` - The sender's company
+   - `{{message}}` - The message content
+4. Get your Service ID, Template ID, and Public Key
+5. Update your `.env.local` file with these values:
+   ```
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+   ```
 
 ## Learn More
 

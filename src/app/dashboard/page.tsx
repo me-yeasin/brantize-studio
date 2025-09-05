@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import About from "./_components/about";
 import Blogs from "./_components/blogs";
+import Contact from "./_components/contact";
 import Projects from "./_components/projects";
 import Services from "./_components/services";
 import Sidebar from "./_components/sidebar";
@@ -13,6 +15,10 @@ export default function DashboardPage() {
   // Function to render the active tab content
   const renderTabContent = () => {
     switch (activeTab) {
+      case "about":
+        return <About />;
+      case "contact":
+        return <Contact />;
       case "blogs":
         return <Blogs />;
       case "projects":

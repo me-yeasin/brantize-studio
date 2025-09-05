@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Orbitron, Roboto } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 import Header from "../components/header";
 import Footer from "./_components/footer";
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${orbitron.variable} ${roboto.variable} antialiased`}>
+        <Toaster position="top-right" />
         <Header />
         <main>{children}</main>
         <footer>
