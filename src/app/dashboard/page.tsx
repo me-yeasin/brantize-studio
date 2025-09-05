@@ -7,6 +7,7 @@ import Contact from "./_components/contact";
 import Projects from "./_components/projects";
 import Services from "./_components/services";
 import Sidebar from "./_components/sidebar";
+import SocialMedia from "./_components/social-media";
 import Subscriptions from "./_components/subscriptions";
 
 export default function DashboardPage() {
@@ -19,6 +20,8 @@ export default function DashboardPage() {
         return <About />;
       case "contact":
         return <Contact />;
+      case "social-media":
+        return <SocialMedia />;
       case "blogs":
         return <Blogs />;
       case "projects":
