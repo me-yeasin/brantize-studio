@@ -13,6 +13,7 @@ export interface Post {
   technologies: string[];
   team: string[];
   client: string;
+  live?: string; // Optional URL to the live project
   features: Feature[];
   process: Feature[];
   gallery: string[];

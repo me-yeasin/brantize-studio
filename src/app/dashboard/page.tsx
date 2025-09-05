@@ -5,6 +5,7 @@ import Blogs from "./_components/blogs";
 import Projects from "./_components/projects";
 import Services from "./_components/services";
 import Sidebar from "./_components/sidebar";
+import Subscriptions from "./_components/subscriptions";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("blogs");
@@ -18,6 +19,8 @@ export default function DashboardPage() {
         return <Projects />;
       case "services":
         return <Services />;
+      case "subscriptions":
+        return <Subscriptions />;
       default:
         return <Blogs />;
     }

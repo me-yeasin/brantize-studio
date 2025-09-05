@@ -36,6 +36,7 @@ interface Project {
   challenge: string;
   solution: string;
   implementation: string;
+  live?: string; // Optional live project URL
   featured: boolean;
   publishedAt?: Date;
   updatedAt?: Date;
@@ -84,6 +85,7 @@ export default function Projects() {
     challenge: "",
     solution: "",
     implementation: "",
+    live: "",
     featured: false,
   });
   const [technology, setTechnology] = useState("");
@@ -398,6 +400,7 @@ export default function Projects() {
         slug: "",
         description: "",
         excerpt: "",
+        live: "",
         coverImage: "",
         gallery: [],
         client: "",
@@ -685,6 +688,22 @@ export default function Projects() {
                   onChange={handleInputChange}
                   className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400"
                   placeholder="e.g. 3 months, 6 weeks"
+                />
+              </div>
+
+              {/* Live URL */}
+              <div>
+                <label className="block text-gray-300 mb-2">
+                  Live Project URL{" "}
+                  <span className="text-gray-500 text-sm">(Optional)</span>
+                </label>
+                <input
+                  type="url"
+                  name="live"
+                  value={formData.live}
+                  onChange={handleInputChange}
+                  className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400"
+                  placeholder="e.g. https://project-demo.com"
                 />
               </div>
 

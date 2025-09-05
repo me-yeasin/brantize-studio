@@ -74,6 +74,7 @@ export default function ProjectDetails({
           technologies: project.technologies || [],
           team: project.team || ["Project Team"],
           client: project.client,
+          live: project.live || "",
           features:
             project.features?.map((feature: string) => ({
               icon: "fas fa-check", // Default icon as it's not in DB schema

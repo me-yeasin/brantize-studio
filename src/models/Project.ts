@@ -32,6 +32,7 @@ export interface IProject extends Document {
   challenge: string;
   solution: string;
   implementation: string;
+  live?: string; // Optional live project URL
   publishedAt: Date;
   updatedAt: Date;
   featured: boolean;
@@ -74,6 +75,7 @@ const ProjectSchema: Schema = new Schema(
     challenge: { type: String },
     solution: { type: String },
     implementation: { type: String },
+    live: { type: String }, // Optional live project URL
     publishedAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     featured: { type: Boolean, default: false },

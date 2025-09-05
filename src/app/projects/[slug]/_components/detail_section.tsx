@@ -95,13 +95,42 @@ const DetailSection = ({ projectData }: DetailSectionProps) => {
                 </ul>
               </div>
 
-              <div>
+              <div className="mb-6 pb-6 border-b border-gray-700">
                 <h4 className="text-xl font-bold mb-4 text-lime-400 flex items-center">
                   <i className="fas fa-building mr-2"></i>
                   Client
                 </h4>
                 <p className="text-gray-400">{projectData.client}</p>
               </div>
+
+              {projectData.live && (
+                <div>
+                  <h4 className="text-xl font-bold mb-4 text-lime-400 flex items-center">
+                    <i className="fas fa-globe mr-2"></i>
+                    Live Project
+                  </h4>
+                  <a
+                    href={projectData.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-lime-400 text-gray-900 font-medium hover:opacity-90 transition-all"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Visit Project
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
