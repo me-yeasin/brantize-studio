@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Brand Gradient Text */
+.brand-gradient-for-text {
+  @apply bg-gradient-to-r from-purple-600 to-lime-400 bg-clip-text text-transparent;
+}
+
+/* Brand Gradient Background */
+.brand-gradient-for-bg {
+  @apply bg-gradient-to-r from-purple-600 to-lime-400;
+}

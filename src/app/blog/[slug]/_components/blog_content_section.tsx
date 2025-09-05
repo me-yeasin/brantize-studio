@@ -1,0 +1,160 @@
+import Image from "next/image";
+import { BlogPost } from "../_model/blog-post";
+
+interface ContentSectionProps {
+  post: BlogPost;
+}
+
+const BlogContentSection = ({ post }: ContentSectionProps) => {
+  return (
+    <section className="py-16 bg-gray-950">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Main content */}
+          <div className="lg:col-span-8">
+            {/* Cover image */}
+            <div className="rounded-xl overflow-hidden mb-10 aspect-video relative">
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
+              />
+            </div>
+
+            {/* Article content */}
+            <article className="prose prose-lg prose-invert max-w-none prose-headings:font-orbitron prose-headings:font-bold prose-a:text-lime-400 prose-pre:bg-gray-800 prose-pre:border prose-pre:border-gray-700">
+              {post.content.map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))}
+            </article>
+
+            {/* Tags */}
+            <div className="mt-10 pt-8 border-t border-gray-800">
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Author bio */}
+            <div className="mt-10 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700">
+              <div className="flex items-center">
+                <div className="w-16 h-16 rounded-full overflow-hidden mr-4">
+                  {post.authorImage ? (
+                    <Image
+                      src={post.authorImage}
+                      alt={post.author}
+                      width={64}
+                      height={64}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-600 to-lime-400 text-gray-900 text-xl font-bold">
+                      {post.author.substring(0, 1)}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">{post.author}</h3>
+                  <p className="text-gray-400">
+                    A passionate writer about AI technology and its
+                    transformative impact on businesses across industries.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-4 space-y-8">
+            {/* Newsletter signup */}
+            <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700">
+              <h3 className="text-xl font-bold mb-4">Stay Updated</h3>
+              <p className="text-gray-400 mb-4">
+                Subscribe to our newsletter to get the latest AI insights
+                delivered to your inbox.
+              </p>
+              <form className="space-y-3">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-400"
+                />
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded-lg font-medium bg-gradient-to-r from-purple-600 to-lime-400 text-gray-900 hover:shadow-lg hover:shadow-purple-600/30 transition-all"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+
+            {/* Categories */}
+            <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700">
+              <h3 className="text-xl font-bold mb-4">Categories</h3>
+              <div className="space-y-2">
+                {[
+                  { name: "AI Strategy", count: 5 },
+                  { name: "Implementation", count: 8 },
+                  { name: "Case Study", count: 4 },
+                  { name: "Technology", count: 7 },
+                  { name: "Innovation", count: 6 },
+                  { name: "Leadership", count: 3 },
+                ].map((category, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between group cursor-pointer"
+                  >
+                    <span className="group-hover:text-lime-400 transition-colors">
+                      {category.name}
+                    </span>
+                    <span className="text-gray-500 text-sm">
+                      {category.count}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Popular tags */}
+            <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700">
+              <h3 className="text-xl font-bold mb-4">Popular Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "AI",
+                  "Machine Learning",
+                  "Automation",
+                  "Business",
+                  "Data",
+                  "Customer Service",
+                  "NLP",
+                  "Trends",
+                  "Strategy",
+                  "Implementation",
+                  "ROI",
+                ].map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors cursor-pointer"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BlogContentSection;
