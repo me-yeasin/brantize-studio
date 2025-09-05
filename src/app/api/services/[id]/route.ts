@@ -3,16 +3,17 @@ import Service from "@/models/Service";
 import { NextResponse } from "next/server";
 
 interface Params {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 // Get a specific service by ID
 export async function GET(request: Request, { params }: Params) {
+  const { id } = await params; // Await the params to get the id
   try {
     await dbConnect();
-    const service = await Service.findById(params.id);
+    const service = await Service.findById(id);
 
     if (!service) {
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
@@ -30,12 +31,13 @@ export async function GET(request: Request, { params }: Params) {
 
 // Update a service
 export async function PUT(request: Request, { params }: Params) {
+  const { id } = await params; // Await the params to get the id
   try {
     const data = await request.json();
     await dbConnect();
 
     const updatedService = await Service.findByIdAndUpdate(
-      params.id,
+      id,
       {
         title: data.title,
         description: data.description,
@@ -65,9 +67,10 @@ export async function PUT(request: Request, { params }: Params) {
 
 // Delete a service
 export async function DELETE(request: Request, { params }: Params) {
+  const { id } = await params; // Await the params to get the id
   try {
     await dbConnect();
-    const deletedService = await Service.findByIdAndDelete(params.id);
+    const deletedService = await Service.findByIdAndDelete(id);
 
     if (!deletedService) {
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
