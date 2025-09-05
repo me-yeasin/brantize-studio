@@ -2,7 +2,7 @@ import { Post } from "../_model/post";
 
 interface ResultSectionProps {
   projectData: Post;
-  counterRef: React.RefObject<null>;
+  counterRef: React.RefObject<HTMLDivElement | null>;
   counters: number[];
 }
 const ResultSection = ({
