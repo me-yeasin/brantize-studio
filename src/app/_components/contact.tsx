@@ -47,6 +47,39 @@ const Contact = () => {
     };
 
     fetchContactInfo();
+
+    // Check if we have URL parameters
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const refUrl = urlParams.get("ref");
+      const shouldFocusContact = urlParams.get("contact");
+
+      // If we have a reference URL, pre-fill the message field
+      if (refUrl) {
+        setFormData((prev) => ({
+          ...prev,
+          message: `I'm interested in a similar solution to: ${refUrl}`,
+        }));
+      }
+
+      // If contact parameter is present, scroll to the contact section
+      if (shouldFocusContact) {
+        const contactSection = document.getElementById("contact");
+        if (contactSection) {
+          setTimeout(() => {
+            contactSection.scrollIntoView({ behavior: "smooth" });
+
+            // Focus on the message textarea after scrolling
+            setTimeout(() => {
+              const messageTextarea = document.getElementById("message");
+              if (messageTextarea) {
+                messageTextarea.focus();
+              }
+            }, 800);
+          }, 500);
+        }
+      }
+    }
   }, []);
 
   const handleChange = (

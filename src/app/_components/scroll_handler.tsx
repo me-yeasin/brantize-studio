@@ -6,6 +6,7 @@ export default function ScrollHandler() {
   useEffect(() => {
     // Function to handle scrolling to the section
     const handleScroll = (retryCount = 0) => {
+      // Check for hash in URL
       if (window.location.hash) {
         // Remove the # from the hash to get the section ID
         const sectionId = window.location.hash.substring(1);
@@ -27,6 +28,29 @@ export default function ScrollHandler() {
         } else if (retryCount < 3) {
           // Retry a few times if the section is not found
           // This helps when navigating from another page and DOM might not be fully ready
+          setTimeout(() => handleScroll(retryCount + 1), 300);
+        }
+      }
+
+      // Check for query parameters (works alongside hash or independently)
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetSection = urlParams.get("section");
+
+      if (targetSection) {
+        const section = document.getElementById(targetSection);
+        if (section) {
+          // Trigger a custom event that the header can listen for
+          const event = new CustomEvent("activateSection", {
+            detail: { sectionId: targetSection },
+          });
+          window.dispatchEvent(event);
+
+          // Scroll to the section with an offset for the header
+          window.scrollTo({
+            top: section.offsetTop - 100, // Match the offset in header.tsx
+            behavior: "smooth",
+          });
+        } else if (retryCount < 3) {
           setTimeout(() => handleScroll(retryCount + 1), 300);
         }
       }

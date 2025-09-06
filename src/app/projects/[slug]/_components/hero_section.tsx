@@ -178,7 +178,14 @@ const HeroSection = ({ projectData, scrollToSection }: HeroSectionProps) => {
                 <span className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
               </button>
               <button
-                onClick={() => scrollToSection("contact")}
+                onClick={() => {
+                  // Get the current URL to pass as reference
+                  const currentUrl = window.location.href;
+                  // Navigate to home page contact section with the reference URL
+                  window.location.href = `/?contact=true&ref=${encodeURIComponent(
+                    currentUrl
+                  )}`;
+                }}
                 className="px-6 py-3 rounded-full font-medium border border-gray-700 text-white hover:bg-gray-800/50 hover:border-lime-400 hover:text-lime-400 transition-all relative overflow-hidden group"
               >
                 <span className="relative z-10">Get Similar Solution</span>
