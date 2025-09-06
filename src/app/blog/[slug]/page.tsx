@@ -1,5 +1,6 @@
 "use client";
 
+import BlogChat from "@/components/chat/BlogChat";
 import AuthModal from "@/overlays/auth_modal";
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
@@ -217,6 +218,10 @@ export default function BlogDetail({
           />
         </svg>
       </button>
+
+      {/* Blog Chat - AI assistant for blog content */}
+      {post && <BlogChat blogData={post} />}
+
       <AuthModal />
     </div>
   );
