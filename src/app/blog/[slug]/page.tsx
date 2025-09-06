@@ -111,6 +111,115 @@ export default function BlogDetail({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Dynamic SEO - update meta tags on client side when blog post data changes
+  useEffect(() => {
+    if (!post) return;
+
+    // Update document title
+    document.title = `${post.title} | Brantize Studio Blog`;
+
+    // Helper function to create or update meta tags
+    const updateMeta = (name: string, content: string, property = false) => {
+      const attributeName = property ? "property" : "name";
+      let meta = document.querySelector(`meta[${attributeName}="${name}"]`);
+
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute(attributeName, name);
+        document.head.appendChild(meta);
+      }
+
+      meta.setAttribute("content", content);
+    };
+
+    // Update standard meta tags
+    updateMeta("description", post.excerpt || "");
+    updateMeta("keywords", post.tags?.join(", ") || post.category || "");
+    updateMeta("author", post.author || "");
+
+    // Update OpenGraph tags
+    updateMeta("og:title", post.title, true);
+    updateMeta("og:description", post.excerpt || "", true);
+    if (post.coverImage) {
+      updateMeta("og:image", post.coverImage, true);
+    }
+    updateMeta("og:type", "article", true);
+    updateMeta("og:site_name", "Brantize Studio", true);
+
+    // Update article specific tags
+    updateMeta(
+      "article:published_time",
+      new Date(post.date).toISOString(),
+      true
+    );
+    updateMeta("article:section", post.category || "", true);
+    if (post.tags && post.tags.length > 0) {
+      post.tags.forEach((tag, index) => {
+        updateMeta(`article:tag:${index}`, tag, true);
+      });
+    }
+
+    // Update Twitter Card tags
+    updateMeta("twitter:title", post.title, true);
+    updateMeta("twitter:description", post.excerpt || "", true);
+    if (post.coverImage) {
+      updateMeta("twitter:image", post.coverImage, true);
+    }
+    updateMeta("twitter:card", "summary_large_image", true);
+
+    // Update canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute(
+      "href",
+      `https://brantize.com/blog/${resolvedParams.slug}`
+    );
+
+    // Add JSON-LD structured data for the blog post
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt || "",
+      image: post.coverImage || "",
+      author: {
+        "@type": "Person",
+        name: post.author || "Brantize Studio",
+        url: "https://brantize.com/about",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Brantize Studio",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://brantize.com/logo.png", // Update with your actual logo URL
+        },
+      },
+      datePublished: new Date(post.date).toISOString(),
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `https://brantize.com/blog/${resolvedParams.slug}`,
+      },
+      keywords: post.tags?.join(", ") || post.category || "",
+      articleSection: post.category || "Blog",
+    };
+
+    // Add or update the JSON-LD script in the head
+    let scriptElement = document.querySelector(
+      'script[type="application/ld+json"]'
+    );
+    if (!scriptElement) {
+      scriptElement = document.createElement("script");
+      scriptElement.setAttribute("type", "application/ld+json");
+      document.head.appendChild(scriptElement);
+    }
+    scriptElement.textContent = JSON.stringify(structuredData);
+  }, [post, resolvedParams.slug]);
+
   // Scroll to top
   const scrollToTop = () => {
     window.scrollTo({
