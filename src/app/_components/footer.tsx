@@ -61,13 +61,7 @@ const Footer = () => {
       "Custom AI Development",
     ],
     company: ["About Us", "Blog", "Contact"],
-    resources: [
-      "Case Studies",
-      "Whitepapers",
-      "Documentation",
-      "API Reference",
-      "Support",
-    ],
+    legal: ["Privacy Policy", "Terms and Conditions"],
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -153,6 +147,14 @@ const Footer = () => {
                         }
                         if (category === "company" && link === "Contact") {
                           scrollToSection("contact");
+                        }
+                        if (category === "legal") {
+                          if (link === "Privacy Policy") {
+                            window.location.href = "/privacy-policy";
+                          }
+                          if (link === "Terms and Conditions") {
+                            window.location.href = "/terms-and-conditions";
+                          }
                         }
                       }}
                     >
