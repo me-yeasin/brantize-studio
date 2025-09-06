@@ -10,6 +10,7 @@ interface Project {
   description: string;
   excerpt: string;
   coverImage: string;
+  videoUrl?: string; // Optional video URL
   gallery: string[];
   client: string;
   technologies: string[];
@@ -67,6 +68,7 @@ export default function Projects() {
     description: "",
     excerpt: "",
     coverImage: "",
+    videoUrl: "",
     gallery: [],
     client: "",
     technologies: [],
@@ -375,6 +377,8 @@ export default function Projects() {
         updatedAt: new Date(),
       };
 
+      console.log("Submitting project data:", projectData);
+
       // Send to our API endpoint
       const response = await fetch("/api/projects/create", {
         method: "POST",
@@ -400,8 +404,9 @@ export default function Projects() {
         slug: "",
         description: "",
         excerpt: "",
-        live: "",
         coverImage: "",
+        videoUrl: "",
+        live: "",
         gallery: [],
         client: "",
         technologies: [],
@@ -412,6 +417,7 @@ export default function Projects() {
           content: "",
           author: "",
           position: "",
+          image: "",
         },
         duration: "",
         industry: "",
@@ -754,6 +760,22 @@ export default function Projects() {
                   className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400"
                   placeholder="Enter cover image URL"
                   required
+                />
+              </div>
+
+              {/* Video URL */}
+              <div className="col-span-2">
+                <label className="block text-gray-300 mb-2">
+                  Video URL{" "}
+                  <span className="text-gray-500 text-sm">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  name="videoUrl"
+                  value={formData.videoUrl}
+                  onChange={handleInputChange}
+                  className="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-lime-400"
+                  placeholder="Enter video URL (e.g., YouTube, Vimeo)"
                 />
               </div>
 

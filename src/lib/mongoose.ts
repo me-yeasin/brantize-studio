@@ -30,9 +30,16 @@ async function dbConnect() {
   }
 
   if (!cached.mongoose?.promise) {
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      autoIndex: true,
+    };
+
     cached.mongoose!.promise = mongoose
-      .connect(MONGODB_URI!)
+      .connect(MONGODB_URI!, options)
       .then((mongoose) => {
+        console.log("Connected to MongoDB");
         return mongoose;
       });
   }

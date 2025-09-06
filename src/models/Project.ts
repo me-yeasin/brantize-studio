@@ -6,6 +6,7 @@ export interface IProject extends Document {
   description: string;
   excerpt: string;
   coverImage: string;
+  videoUrl?: string; // Optional video URL
   gallery: string[];
   client: string;
   technologies: string[];
@@ -45,6 +46,7 @@ const ProjectSchema: Schema = new Schema(
     description: { type: String, required: true },
     excerpt: { type: String, required: true },
     coverImage: { type: String, required: true },
+    videoUrl: { type: String }, // Optional video URL
     gallery: [{ type: String }],
     client: { type: String, required: true },
     technologies: [{ type: String }],

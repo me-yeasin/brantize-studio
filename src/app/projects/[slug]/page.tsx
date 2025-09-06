@@ -20,7 +20,6 @@ export default function ProjectDetails({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  // Unwrap the params Promise using React.use()
   const resolvedParams = use(params);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
@@ -58,6 +57,7 @@ export default function ProjectDetails({
           slug: project.slug,
           subtitle: project.excerpt,
           description: project.description,
+          videoUrl: project.videoUrl || "",
           completedDate: new Date(project.publishedAt).toLocaleDateString(
             "en-US",
             {

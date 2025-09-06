@@ -14,6 +14,7 @@ export interface Post {
   team: string[];
   client: string;
   live?: string; // Optional URL to the live project
+  videoUrl?: string; // Optional video URL
   features: Feature[];
   process: Feature[];
   gallery: string[];
