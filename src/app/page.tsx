@@ -1,3 +1,4 @@
+import ChatBot from "@/components/chat/ChatBot";
 import About from "./_components/about";
 import Blog from "./_components/blog";
 import Contact from "./_components/contact";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <ScrollHandler />
+      <ChatBot />
       <section id="home">
         <Hero />
       </section>

@@ -8,9 +8,43 @@
   --background: #0a0a1a;
 }
 
-@theme inline {
+@theme {
   --font-orbitron: var(--font-orbitron);
   --font-roboto: var(--font-roboto);
+
+  /* Animation definitions */
+  --animate-spin-slow: spin-slow 8s linear infinite;
+  --animate-shimmer: shimmer 2s infinite;
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) skewX(-12deg);
+    }
+    100% {
+      transform: translateX(100%) skewX(-12deg);
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @utility brand-gradient-for-text {
@@ -28,6 +62,28 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-roboto), sans-serif;
+}
+
+.animate-spin-slow {
+  animation: var(--animate-spin-slow);
+}
+
+.animate-shimmer {
+  animation: var(--animate-shimmer);
+}
+
+.animate-fade-in {
+  animation: var(--animate-fade-in);
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
 
 h1,
