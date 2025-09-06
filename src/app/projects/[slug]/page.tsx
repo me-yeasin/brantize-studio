@@ -237,6 +237,58 @@ export default function ProjectDetails({
     };
   }, [loading, projectData]);
 
+  // Dynamic SEO meta tags effect - must be declared before conditional returns
+  useEffect(() => {
+    // Only run when we have project data and not loading
+    if (loading || !projectData) return;
+
+    // Update document title
+    document.title = `${projectData.title} | Brantize Studio Portfolio`;
+
+    // Helper function to create or update meta tags
+    const updateMeta = (name: string, content: string, property = false) => {
+      const attributeName = property ? "property" : "name";
+      let meta = document.querySelector(`meta[${attributeName}="${name}"]`);
+
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute(attributeName, name);
+        document.head.appendChild(meta);
+      }
+
+      meta.setAttribute("content", content);
+    };
+
+    // Update meta tags
+    updateMeta("description", projectData.description || projectData.subtitle);
+    updateMeta("keywords", projectData.technologies?.join(", ") || "");
+    updateMeta("og:title", projectData.title, true);
+    updateMeta(
+      "og:description",
+      projectData.description || projectData.subtitle,
+      true
+    );
+    updateMeta("og:image", projectData.coverImage, true);
+    updateMeta("og:type", "article", true);
+    updateMeta("og:site_name", "Brantize Studio", true);
+    updateMeta("twitter:title", projectData.title, true);
+    updateMeta("twitter:description", projectData.subtitle, true);
+    updateMeta("twitter:image", projectData.coverImage, true);
+    updateMeta("twitter:card", "summary_large_image", true);
+
+    // Update canonical link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute(
+      "href",
+      `https://brantize.com/projects/${projectData.slug}`
+    );
+  }, [loading, projectData]);
+
   // Loading state
   if (loading) {
     return (
@@ -292,85 +344,116 @@ export default function ProjectDetails({
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      {/* Hero Section */}
-      <HeroSection
-        projectData={projectData}
-        scrollToSection={(section) => {
-          const element = document.getElementById(section);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
+    <>
+      {/* JSON-LD structured data for search engines */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Project",
+            "@id": `https://brantize.com/projects/${projectData.slug}#project`,
+            name: projectData.title,
+            description: projectData.description,
+            image: projectData.coverImage,
+            datePublished: projectData.completedDate,
+            keywords: projectData.tags?.join(", "),
+            provider: {
+              "@type": "Organization",
+              name: "Brantize Studio",
+              url: "https://brantize.com",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://brantize.com/projects/${projectData.slug}`,
+            },
+          }),
         }}
       />
 
-      {/* Detail Section */}
-      <DetailSection projectData={projectData} />
+      <div className="min-h-screen bg-gray-900 text-white">
+        {/* Hero Section */}
+        <HeroSection
+          projectData={projectData}
+          scrollToSection={(section) => {
+            const element = document.getElementById(section);
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+        />
 
-      {/* Feature Section */}
-      <FeatureSection projectData={projectData} />
+        {/* Detail Section */}
+        <DetailSection projectData={projectData} />
 
-      {/* Process Section */}
-      <ProcessSection projectData={projectData} />
+        {/* Feature Section */}
+        <FeatureSection projectData={projectData} />
 
-      {/* Gallery Section */}
-      <GallerySection projectData={projectData} openLightbox={openLightbox} />
+        {/* Process Section */}
+        <ProcessSection projectData={projectData} />
 
-      {/* Results Section */}
-      <ResultSection
-        projectData={projectData}
-        counters={counters}
-        counterRef={countersRef}
-      />
+        {/* Gallery Section */}
+        <GallerySection projectData={projectData} openLightbox={openLightbox} />
 
-      {/* Testimonial Section */}
-      {projectData.testimonial && (
-        <TestimonialSection projectData={projectData} />
-      )}
+        {/* Results Section */}
+        <ResultSection
+          projectData={projectData}
+          counters={counters}
+          counterRef={countersRef}
+        />
 
-      {/* Related Projects */}
-      {projectData.relatedProjects &&
-        projectData.relatedProjects.length > 0 && (
-          <RelatedProject projectData={projectData} />
+        {/* Testimonial Section */}
+        {projectData.testimonial && (
+          <TestimonialSection projectData={projectData} />
         )}
 
-      {/* Call to Action */}
-      <CtaSection />
+        {/* Related Projects */}
+        {projectData.relatedProjects &&
+          projectData.relatedProjects.length > 0 && (
+            <RelatedProject projectData={projectData} />
+          )}
 
-      {/* Lightbox */}
-      <Lightbox
-        isOpen={isLightboxOpen}
-        onClose={closeLightbox}
-        imageSrc={currentImage}
-      />
+        {/* Call to Action */}
+        <CtaSection />
 
-      {/* Back to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-lime-400 flex items-center justify-center text-gray-900 shadow-lg transition-all z-30 ${
-          isScrolled ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+        {/* Lightbox */}
+        <Lightbox
+          isOpen={isLightboxOpen}
+          onClose={closeLightbox}
+          imageSrc={currentImage}
+        />
+
+        {/* Back to Top Button */}
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-lime-400 flex items-center justify-center text-gray-900 shadow-lg transition-all z-30 ${
+            isScrolled
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+          aria-label="Scroll to top"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 15l7-7 7 7"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 15l7-7 7 7"
+            />
+          </svg>
+        </button>
 
-      {/* Project Chat Component */}
-      {projectData && <ProjectChat projectData={projectData} />}
+        {/* Project Chat Component */}
+        {projectData && <ProjectChat projectData={projectData} />}
 
-      <AuthModal />
-    </div>
+        <AuthModal />
+      </div>
+    </>
   );
 }
