@@ -1,6 +1,7 @@
 "use client";
 
 import Lightbox from "@/app/_components/light_box";
+import ProjectChat from "@/components/chat/ProjectChat";
 import AuthModal from "@/overlays/auth_modal";
 import Link from "next/link";
 import { use, useEffect, useRef, useState } from "react";
@@ -346,7 +347,7 @@ export default function ProjectDetails({
       {/* Back to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-lime-400 flex items-center justify-center text-gray-900 shadow-lg transition-all z-50 ${
+        className={`fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-lime-400 flex items-center justify-center text-gray-900 shadow-lg transition-all z-30 ${
           isScrolled ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -365,6 +366,9 @@ export default function ProjectDetails({
           />
         </svg>
       </button>
+
+      {/* Project Chat Component */}
+      {projectData && <ProjectChat projectData={projectData} />}
 
       <AuthModal />
     </div>

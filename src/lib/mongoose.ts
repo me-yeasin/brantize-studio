@@ -31,9 +31,8 @@ async function dbConnect() {
 
   if (!cached.mongoose?.promise) {
     const options = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       autoIndex: true,
+      // The deprecated options are removed
     };
 
     cached.mongoose!.promise = mongoose
