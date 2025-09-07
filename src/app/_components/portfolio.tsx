@@ -49,8 +49,9 @@ const Portfolio = () => {
             Our <span className="brand-gradient-for-text">Success Stories</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Explore our portfolio of AI integration projects that have
-            transformed businesses across various industries.
+            Witness the transformation: Our AI integration portfolio showcases
+            how we have turned challenges into competitive advantages for
+            businesses across Romania.
           </p>
         </div>
 

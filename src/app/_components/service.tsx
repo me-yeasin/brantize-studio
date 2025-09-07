@@ -76,7 +76,7 @@ const Services = () => {
         {
           _id: "1",
           icon: "MdOutlineEmail",
-          title: "Auto Email Responder",
+          title: "RO e-Factura & Fiscal Automation",
           description:
             "Intelligent email automation that understands context and crafts personalized responses, reducing response time by 80%.",
         },
@@ -152,8 +152,9 @@ const Services = () => {
             Our <span className="brand-gradient-for-text">AI Solutions</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            We specialize in creating custom AI agents that solve real business
-            problems and deliver measurable results.
+            We empower local businesses to thrive in the digital age through
+            intelligent AI solutions that transform challenges into
+            opportunities.
           </p>
         </div>
 

@@ -88,14 +88,17 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="hero-text text-center lg:text-left">
             <h1 className="font-orbitron font-black text-5xl md:text-6xl mb-5 leading-tight">
-              Transform Your Business with{" "}
-              <span className="brand-gradient-for-text">AI Integration</span>
+              <span className="brand-gradient-for-text">
+                AI Integration & Automation
+              </span>{" "}
+              Services in Cluj-Napoca
             </h1>
             <p className="text-xl text-gray-400 mb-8">
-              We create intelligent AI solutions that automate tasks, analyze
-              data, and enhance user experiences. Our custom AI agents work
-              seamlessly with your existing systems to drive growth and
-              efficiency.
+              Brandtize Studio delivers AI-powered chatbots, smart reservation
+              systems, automated customer support, and custom AI websites
+              tailored for restaurants and retail stores in Romania. Our AI
+              solutions reduce costs, boost sales, and help local businesses in
+              Cluj-Napoca stay ahead of the competition.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button

@@ -60,8 +60,8 @@ const Blog = () => {
             </span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Stay updated with the latest trends, innovations, and best practices
-            in AI integration and automation.
+            Gain your competitive edge: Access the latest AI integration trends
+            and automation strategies transforming local businesses.
           </p>
         </div>
 
