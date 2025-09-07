@@ -7,8 +7,8 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    await dbConnect();
     const { slug } = await params;
+    await dbConnect();
 
     if (!slug) {
       return NextResponse.json(
@@ -59,6 +59,122 @@ export async function GET(
     });
   } catch (error) {
     console.error("Failed to fetch blog post:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await params;
+    await dbConnect();
+    if (!slug) {
+      return NextResponse.json(
+        { error: "Slug parameter is required" },
+        { status: 400 }
+      );
+    }
+
+    // Find and delete the blog post
+    const deletedBlog = await BlogPost.findOneAndDelete({ slug });
+
+    if (!deletedBlog) {
+      return NextResponse.json(
+        { error: "Blog post not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Blog post deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting blog post:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await params;
+    await dbConnect();
+    // Handle both Promise and direct object cases
+    if (!slug) {
+      return NextResponse.json(
+        { error: "Slug parameter is required" },
+        { status: 400 }
+      );
+    }
+
+    // Get the updated data from request body
+    const data = await request.json();
+
+    // Validate required fields
+    const missingFields = [];
+    if (!data.title) missingFields.push("title");
+    if (!data.excerpt) missingFields.push("excerpt");
+    if (!data.content) missingFields.push("content");
+    if (!data.coverImage) missingFields.push("coverImage");
+    if (!data.author) missingFields.push("author");
+    else if (!data.author.name) missingFields.push("author.name");
+
+    if (missingFields.length > 0) {
+      return NextResponse.json(
+        {
+          error: `Missing required fields: ${missingFields.join(", ")}`,
+          details: { missingFields },
+        },
+        { status: 400 }
+      );
+    }
+
+    // Find the blog post by slug
+    const blog = await BlogPost.findOne({ slug });
+
+    if (!blog) {
+      return NextResponse.json(
+        { error: "Blog post not found" },
+        { status: 404 }
+      );
+    }
+
+    // Update the blog post
+    blog.title = data.title;
+    blog.excerpt = data.excerpt;
+    blog.content = data.content;
+    blog.coverImage = data.coverImage;
+    blog.author = {
+      name: data.author.name,
+      image: data.author.image || "/images/authors/default.jpg",
+    };
+    blog.categories = data.categories || [];
+    blog.tags = data.tags || [];
+    blog.featured = data.featured || false;
+    blog.readTime = data.readTime || "";
+    blog.updatedAt = new Date();
+
+    // Save the updated blog post
+    await blog.save();
+
+    return NextResponse.json({
+      success: true,
+      blog,
+      message: "Blog post updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating blog post:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
