@@ -124,7 +124,7 @@ const ChatBot = () => {
 
       {/* Chat window */}
       {isOpen && (
-        <div className="fixed max-sm:top-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:w-full max-sm:h-[calc(100vh-64px)] max-sm:rounded-none sm:bottom-24 sm:right-6 sm:w-96 sm:h-[600px] bg-gray-900/95 backdrop-blur-md sm:rounded-xl shadow-[0_0_25px_rgba(124,77,255,0.5)] border border-purple-500/30 flex flex-col z-30 overflow-hidden animate-fadeIn">
+        <div className="fixed max-sm:top-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:w-full max-sm:h-[calc(100dvh-64px)] max-sm:rounded-none sm:bottom-24 sm:right-6 sm:w-96 sm:h-[600px] bg-gray-900/95 backdrop-blur-md sm:rounded-xl shadow-[0_0_25px_rgba(124,77,255,0.5)] border border-purple-500/30 flex flex-col z-30 overflow-hidden animate-fadeIn">
           {/* Decorative gradient corner */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-purple-600/30 via-lime-400/20 to-transparent rounded-full blur-xl"></div>
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-tr from-purple-600/30 via-lime-400/20 to-transparent rounded-full blur-xl"></div>

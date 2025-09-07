@@ -215,7 +215,7 @@ I'm here to help you understand this article better. Feel free to ask questions 
 
       {/* Blog Chat Panel */}
       {isOpen && (
-        <div className="fixed sm:top-0 max-sm:top-16 right-0 sm:w-[500px] max-sm:w-full sm:h-full max-sm:h-[calc(100vh-64px)] bg-gray-900/95 backdrop-blur-md shadow-[-10px_0_25px_rgba(124,77,255,0.3)] border-l border-purple-500/30 flex flex-col z-50 animate-slideInRight overflow-hidden">
+        <div className="fixed sm:top-0 max-sm:top-16 right-0 sm:w-[500px] max-sm:w-full sm:h-full max-sm:h-[calc(100dvh-64px)] bg-gray-900/95 backdrop-blur-md shadow-[-10px_0_25px_rgba(124,77,255,0.3)] border-l border-purple-500/30 flex flex-col z-50 animate-slideInRight overflow-hidden">
           {/* Panel header */}
           <div className="p-4 bg-gradient-to-r from-purple-900 to-gray-900 border-b border-purple-500/30 flex justify-between items-center">
             <h3 className="font-orbitron font-bold text-white flex items-center gap-2">
