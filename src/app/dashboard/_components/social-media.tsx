@@ -8,6 +8,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaMediumM,
+  FaPinterestP,
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
@@ -37,6 +38,7 @@ const SocialMediaDashboard = () => {
     Instagram: <FaInstagram />,
     Facebook: <FaFacebookF />,
     YouTube: <FaYoutube />,
+    Pinterest: <FaPinterestP />,
   };
 
   useEffect(() => {

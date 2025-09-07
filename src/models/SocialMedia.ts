@@ -19,6 +19,7 @@ const SocialMediaSchema: Schema = new Schema(
         "Instagram",
         "Facebook",
         "YouTube",
+        "Pinterest",
       ],
     },
     url: {

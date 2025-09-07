@@ -8,6 +8,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaMediumM,
+  FaPinterestP,
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
@@ -50,6 +51,7 @@ const Footer = () => {
     Instagram: <FaInstagram size={18} />,
     Facebook: <FaFacebookF size={18} />,
     YouTube: <FaYoutube size={18} />,
+    Pinterest: <FaPinterestP size={18} />,
   };
 
   const footerLinks = {

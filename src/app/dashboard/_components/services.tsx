@@ -115,12 +115,42 @@ export default function ServicesComponent() {
   const fetchServices = async () => {
     try {
       setLoading(true);
+
+      // Check if we have cached data and if it's still valid (less than 1 hour old)
+      const cachedData = localStorage.getItem("services-cache");
+
+      if (cachedData) {
+        const { timestamp, data } = JSON.parse(cachedData);
+        const cacheAge = Date.now() - timestamp;
+        const oneHourInMs = 60 * 60 * 1000; // 1 hour in milliseconds
+
+        // If cache is less than 1 hour old, use it
+        if (cacheAge < oneHourInMs) {
+          console.log("Using cached services data");
+          setServices(data);
+          setLoading(false);
+          return;
+        }
+        // Cache expired, will fetch fresh data
+        console.log("Cache expired, fetching fresh services data");
+      }
+
+      // Fetch fresh data
       const response = await fetch("/api/services");
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || "Failed to fetch services");
       }
+
+      // Store data in cache with timestamp
+      localStorage.setItem(
+        "services-cache",
+        JSON.stringify({
+          timestamp: Date.now(),
+          data: data,
+        })
+      );
 
       setServices(data);
     } catch (err) {
@@ -161,6 +191,9 @@ export default function ServicesComponent() {
         throw new Error(data.error || "Failed to save service");
       }
 
+      // Invalidate cache since we've modified the data
+      localStorage.removeItem("services-cache");
+
       // Refresh services list
       fetchServices();
       setIsModalOpen(false);
@@ -182,6 +215,9 @@ export default function ServicesComponent() {
           const data = await response.json();
           throw new Error(data.error || "Failed to delete service");
         }
+
+        // Invalidate cache since we've deleted a service
+        localStorage.removeItem("services-cache");
 
         // Refresh services list
         fetchServices();
