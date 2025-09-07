@@ -189,7 +189,7 @@ I'm here to help you understand this article better. Feel free to ask questions 
         onClick={toggleChat}
         className={`fixed top-1/2 right-0 -translate-y-1/2 bg-gradient-to-br from-purple-700 to-gray-900 text-white py-3 px-2 rounded-l-lg shadow-lg transition-all duration-300 z-40 group ${
           isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
-        }`}
+        } ${isOpen ? "max-sm:hidden" : ""}`}
         aria-label="Blog Info"
       >
         <div className="flex flex-col items-center gap-2">
@@ -215,7 +215,7 @@ I'm here to help you understand this article better. Feel free to ask questions 
 
       {/* Blog Chat Panel */}
       {isOpen && (
-        <div className="fixed top-0 right-0 w-[500px] h-full bg-gray-900/95 backdrop-blur-md shadow-[-10px_0_25px_rgba(124,77,255,0.3)] border-l border-purple-500/30 flex flex-col z-50 animate-slideInRight overflow-hidden">
+        <div className="fixed sm:top-0 max-sm:top-16 right-0 sm:w-[500px] max-sm:w-full sm:h-full max-sm:h-[calc(100vh-64px)] bg-gray-900/95 backdrop-blur-md shadow-[-10px_0_25px_rgba(124,77,255,0.3)] border-l border-purple-500/30 flex flex-col z-50 animate-slideInRight overflow-hidden">
           {/* Panel header */}
           <div className="p-4 bg-gradient-to-r from-purple-900 to-gray-900 border-b border-purple-500/30 flex justify-between items-center">
             <h3 className="font-orbitron font-bold text-white flex items-center gap-2">
@@ -224,21 +224,21 @@ I'm here to help you understand this article better. Feel free to ask questions 
             </h3>
             <button
               onClick={toggleChat}
-              className="text-gray-300 hover:text-white"
+              className="text-gray-300 hover:text-white max-sm:p-1 max-sm:bg-purple-900/50 max-sm:rounded-md max-sm:border max-sm:border-purple-500/30"
             >
               <FiX size={18} />
             </button>
           </div>
 
           {/* Chat messages area - optimized for scrolling */}
-          <div className="flex-1 overflow-y-auto scrollbar-hide p-4 flex flex-col relative">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide p-4 flex flex-col relative">
             <div className="w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/10 via-transparent to-transparent pointer-events-none absolute left-0 top-0 z-0"></div>
 
             {/* Spacer div to push content down if needed */}
             {messages.length === 1 && <div className="flex-grow"></div>}
 
             {/* Messages container */}
-            <div className="space-y-4 relative z-10">
+            <div className="space-y-4 relative z-10 w-full">
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -246,7 +246,7 @@ I'm here to help you understand this article better. Feel free to ask questions 
                     msg.role === "user"
                       ? "ml-auto bg-gradient-to-r from-purple-800/40 to-purple-600/20 border-r-2 border-lime-400"
                       : "mr-auto bg-gradient-to-r from-gray-800/80 to-gray-800/40 border-l-2 border-purple-500"
-                  } max-w-[90%] rounded-lg p-4 shadow-lg backdrop-blur-sm`}
+                  } max-w-[90%] w-fit rounded-lg p-4 shadow-lg backdrop-blur-sm`}
                 >
                   {msg.role === "assistant" && (
                     <div className="w-2 h-2 bg-purple-500 rounded-full -ml-6 -mt-4"></div>
@@ -254,7 +254,7 @@ I'm here to help you understand this article better. Feel free to ask questions 
                   {msg.role === "user" && (
                     <div className="w-2 h-2 bg-lime-400 rounded-full ml-auto -mr-6 -mt-4"></div>
                   )}
-                  <div className="text-sm leading-relaxed prose prose-invert prose-sm max-w-none">
+                  <div className="text-sm leading-relaxed prose prose-invert prose-sm max-w-none break-words overflow-hidden">
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
@@ -310,7 +310,7 @@ I'm here to help you understand this article better. Feel free to ask questions 
                         },
                         pre: (props) => (
                           <pre
-                            className="bg-gray-800/50 p-2 rounded overflow-x-auto mb-2"
+                            className="bg-gray-800/50 p-2 rounded overflow-x-auto mb-2 max-w-full"
                             {...props}
                           />
                         ),
@@ -327,9 +327,9 @@ I'm here to help you understand this article better. Feel free to ask questions 
                           />
                         ),
                         table: (props) => (
-                          <div className="overflow-x-auto my-2">
+                          <div className="overflow-x-auto my-2 max-w-full">
                             <table
-                              className="border-collapse w-full"
+                              className="border-collapse w-full text-sm"
                               {...props}
                             />
                           </div>
@@ -386,16 +386,16 @@ I'm here to help you understand this article better. Feel free to ask questions 
             }}
           >
             {/* Input container with constrained width */}
-            <div className="flex max-w-full relative">
+            <div className="flex w-full relative">
               {/* Input with glowing border */}
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 max-w-full">
                 <input
                   ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask about this blog..."
-                  className="w-full bg-gray-800 text-white rounded-l-lg px-4 py-2 focus:outline-none border-2 border-purple-600 focus:border-lime-400 transition-colors text-sm z-40"
+                  className="w-full bg-gray-800 text-white rounded-l-lg px-4 py-2 focus:outline-none border-2 border-purple-600 focus:border-lime-400 transition-colors text-sm z-40 text-ellipsis"
                   disabled={isLoading}
                   autoComplete="off"
                   style={{ position: "relative" }}

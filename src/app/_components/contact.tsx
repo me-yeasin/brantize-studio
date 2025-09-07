@@ -220,7 +220,7 @@ const Contact = () => {
             </form>
           </div>
 
-          <div className="flex flex-col justify-start">
+          <div className="flex flex-col justify-start text-center lg:text-left">
             <h2 className="font-orbitron font-bold text-4xl mb-6">
               Let&apos;s Connect
             </h2>
@@ -236,19 +236,19 @@ const Contact = () => {
             )}
 
             <div className="space-y-6">
-              <div className="flex items-center">
+              <div className="flex items-center justify-center lg:justify-start">
                 <i className="fas fa-envelope text-2xl text-lime-400 w-10 text-center"></i>
                 <span>{loading ? "Loading..." : contactInfo.email}</span>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center lg:justify-start">
                 <i className="fas fa-phone text-2xl text-lime-400 w-10 text-center"></i>
                 <span>{loading ? "Loading..." : contactInfo.phone}</span>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center lg:justify-start">
                 <i className="fas fa-map-marker-alt text-2xl text-lime-400 w-10 text-center"></i>
                 <span>{loading ? "Loading..." : contactInfo.address}</span>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center lg:justify-start">
                 <i className="fas fa-clock text-2xl text-lime-400 w-10 text-center"></i>
                 <span>{loading ? "Loading..." : contactInfo.hours}</span>
               </div>

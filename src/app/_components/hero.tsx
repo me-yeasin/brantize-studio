@@ -86,7 +86,7 @@ const Hero = () => {
     >
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="hero-text">
+          <div className="hero-text text-center lg:text-left">
             <h1 className="font-orbitron font-black text-5xl md:text-6xl mb-5 leading-tight">
               Transform Your Business with{" "}
               <span className="brand-gradient-for-text">AI Integration</span>
@@ -97,7 +97,7 @@ const Hero = () => {
               seamlessly with your existing systems to drive growth and
               efficiency.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button
                 onClick={() => scrollToSection("portfolio")}
                 className="px-6 py-3.5 rounded-full font-medium bg-gradient-to-r from-purple-600 to-lime-400 text-gray-900 shadow-lg shadow-purple-600/20 hover:shadow-purple-600/40 hover:-translate-y-0.5 transition-all text-lg"

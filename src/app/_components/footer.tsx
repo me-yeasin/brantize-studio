@@ -78,7 +78,7 @@ const Footer = () => {
     <footer className="py-16 bg-gray-950 border-t border-gray-800">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="font-orbitron font-bold text-xl mb-4">
               Brandtize Studio
             </h3>
@@ -86,7 +86,7 @@ const Footer = () => {
               Creating intelligent AI solutions that transform businesses and
               drive growth.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 justify-center md:justify-start">
               {loading
                 ? // Loading state - show placeholders
                   [...Array(4)].map((_, index) => (
@@ -129,7 +129,7 @@ const Footer = () => {
           </div>
 
           {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
+            <div key={category} className="text-center md:text-left">
               <h3 className="font-bold text-lg mb-4 capitalize">{category}</h3>
               <ul className="space-y-2">
                 {links.map((link, index) => (

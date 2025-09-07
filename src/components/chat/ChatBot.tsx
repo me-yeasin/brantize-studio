@@ -80,7 +80,11 @@ const ChatBot = () => {
   return (
     <>
       {/* Chat bubble button */}
-      <div className="fixed bottom-6 right-6 z-50 group">
+      <div
+        className={`fixed bottom-6 right-6 z-50 group ${
+          isOpen ? "max-sm:hidden" : ""
+        }`}
+      >
         {/* Pulsating ring animation */}
         <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 via-lime-400 to-purple-600 rounded-full blur-lg animate-pulse opacity-75"></div>
 
@@ -90,7 +94,7 @@ const ChatBot = () => {
         {/* Main button */}
         <button
           onClick={toggleChat}
-          className="relative w-16 h-16 rounded-full bg-gradient-to-br from-purple-700 via-purple-900 to-gray-900 flex items-center justify-center text-white shadow-[0_0_15px_rgba(124,77,255,0.8)] hover:shadow-[0_0_25px_rgba(124,77,255,0.8)] transition-all duration-300 border-2 border-transparent group-hover:border-white/20"
+          className="relative w-16 h-16 max-sm:w-14 max-sm:h-14 rounded-full bg-gradient-to-br from-purple-700 via-purple-900 to-gray-900 flex items-center justify-center text-white shadow-[0_0_15px_rgba(124,77,255,0.8)] hover:shadow-[0_0_25px_rgba(124,77,255,0.8)] transition-all duration-300 border-2 border-transparent group-hover:border-white/20"
           aria-label="Open chat"
         >
           <div className="absolute inset-0 rounded-full overflow-hidden">
@@ -120,7 +124,7 @@ const ChatBot = () => {
 
       {/* Chat window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-96 sm:w-96 h-[850px] bg-gray-900/95 backdrop-blur-md rounded-xl shadow-[0_0_25px_rgba(124,77,255,0.5)] border border-purple-500/30 flex flex-col z-30 overflow-hidden animate-fadeIn">
+        <div className="fixed max-sm:top-16 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 max-sm:w-full max-sm:h-[calc(100vh-64px)] max-sm:rounded-none sm:bottom-24 sm:right-6 sm:w-96 sm:h-[600px] bg-gray-900/95 backdrop-blur-md sm:rounded-xl shadow-[0_0_25px_rgba(124,77,255,0.5)] border border-purple-500/30 flex flex-col z-30 overflow-hidden animate-fadeIn">
           {/* Decorative gradient corner */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-purple-600/30 via-lime-400/20 to-transparent rounded-full blur-xl"></div>
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-tr from-purple-600/30 via-lime-400/20 to-transparent rounded-full blur-xl"></div>
@@ -136,9 +140,10 @@ const ChatBot = () => {
             </h3>
             <button
               onClick={toggleChat}
-              className="text-gray-300 hover:text-white relative z-10"
+              className="text-gray-300 hover:text-white relative z-10 max-sm:p-1 max-sm:bg-purple-900/50 max-sm:rounded-md max-sm:border max-sm:border-purple-500/30"
             >
-              <FiMinimize2 size={18} />
+              <FiX className="max-sm:block sm:hidden" size={18} />
+              <FiMinimize2 className="max-sm:hidden sm:block" size={18} />
             </button>
           </div>
 

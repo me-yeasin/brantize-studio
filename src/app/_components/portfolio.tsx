@@ -95,8 +95,35 @@ const Portfolio = () => {
             portfolioItems.map((item) => (
               <div
                 key={item._id}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 transition-all hover:-translate-y-2 hover:shadow-xl"
+                className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 transition-all hover:-translate-y-2 hover:shadow-xl relative"
               >
+                {/* Mobile Tap Indicator - Only visible on small screens */}
+                <div className="absolute top-2 right-2 sm:hidden z-10 animate-pulse">
+                  <div className="bg-lime-500/90 text-gray-900 rounded-full px-3 py-1 text-sm font-medium flex items-center shadow-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                    Tap to View
+                  </div>
+                </div>
+
                 <div className="h-48 relative overflow-hidden">
                   {item.coverImage ? (
                     <div className="w-full h-full relative">
@@ -113,7 +140,7 @@ const Portfolio = () => {
                   ) : (
                     <div className="h-full brand-gradient-for-bg"></div>
                   )}
-                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                  <div className="absolute inset-0 bg-black/50 items-center justify-center opacity-0 hover:opacity-100 transition-opacity hidden sm:flex">
                     <a
                       href={`/projects/${item.slug}`}
                       className="px-4 py-2 rounded-full font-medium brand-gradient-for-bg text-gray-900"
@@ -139,6 +166,30 @@ const Portfolio = () => {
                         +{item.technologies.length - 3} more
                       </span>
                     )}
+                  </div>
+
+                  {/* Mobile view button - Only visible on small screens */}
+                  <div className="mt-4 sm:hidden">
+                    <a
+                      href={`/projects/${item.slug}`}
+                      className="w-full flex items-center justify-center px-4 py-2 rounded-lg font-medium brand-gradient-for-bg text-gray-900"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      View Project
+                    </a>
                   </div>
                 </div>
               </div>
