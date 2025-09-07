@@ -59,3 +59,90 @@ export async function GET(
     );
   }
 }
+
+// Add DELETE method to handle project deletion
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { slug: string } | Promise<{ slug: string }> }
+) {
+  try {
+    await dbConnect();
+
+    // Handle both Promise and direct object cases
+    const slug = params instanceof Promise ? (await params).slug : params.slug;
+
+    if (!slug) {
+      return NextResponse.json(
+        { error: "Project slug is required" },
+        { status: 400 }
+      );
+    }
+
+    // Find the project first to confirm it exists
+    const project = await Project.findOne({ slug });
+
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    // Delete the project
+    await Project.deleteOne({ slug });
+
+    return NextResponse.json({
+      message: "Project deleted successfully",
+    });
+  } catch (error) {
+    console.error("Failed to delete project:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+// Add PUT method to handle project updates
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { slug: string } | Promise<{ slug: string }> }
+) {
+  try {
+    await dbConnect();
+
+    // Handle both Promise and direct object cases
+    const slug = params instanceof Promise ? (await params).slug : params.slug;
+
+    if (!slug) {
+      return NextResponse.json(
+        { error: "Project slug is required" },
+        { status: 400 }
+      );
+    }
+
+    const data = await request.json();
+
+    // Find the project first to confirm it exists
+    const project = await Project.findOne({ slug });
+
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    // Update the project
+    const updatedProject = await Project.findOneAndUpdate(
+      { slug },
+      { ...data, updatedAt: new Date() },
+      { new: true }
+    );
+
+    return NextResponse.json({
+      message: "Project updated successfully",
+      project: updatedProject,
+    });
+  } catch (error) {
+    console.error("Failed to update project:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
