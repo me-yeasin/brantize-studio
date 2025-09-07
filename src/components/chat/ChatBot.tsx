@@ -85,40 +85,54 @@ const ChatBot = () => {
           isOpen ? "max-sm:hidden" : ""
         }`}
       >
-        {/* Pulsating ring animation */}
-        <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 via-lime-400 to-purple-600 rounded-full blur-lg animate-pulse opacity-75"></div>
+        {/* Outer glow effects */}
+        <div className="absolute -inset-4 bg-gradient-to-r from-purple-600 via-lime-400 to-purple-600 rounded-full blur-xl opacity-40 animate-pulse"></div>
+        <div
+          className="absolute -inset-3 bg-gradient-to-r from-purple-600 via-lime-400 to-purple-600 rounded-full blur-lg opacity-30 animate-pulse"
+          style={{ animationDelay: "0.5s" }}
+        ></div>
 
-        {/* Rotating gradient border */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-lime-400 to-purple-600 rounded-full animate-spin-slow opacity-90"></div>
+        {/* Premium gradient border with animation */}
+        <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-lime-400 via-purple-600 to-lime-400 animate-spin-slow opacity-90"></div>
+
+        {/* Inner gold/premium border */}
+        <div className="absolute inset-[3px] rounded-full border-2 border-[#f0c987]/30"></div>
 
         {/* Main button */}
         <button
           onClick={toggleChat}
-          className="relative w-16 h-16 max-sm:w-14 max-sm:h-14 rounded-full bg-gradient-to-br from-purple-700 via-purple-900 to-gray-900 flex items-center justify-center text-white shadow-[0_0_15px_rgba(124,77,255,0.8)] hover:shadow-[0_0_25px_rgba(124,77,255,0.8)] transition-all duration-300 border-2 border-transparent group-hover:border-white/20"
+          className="relative w-16 h-16 max-sm:w-14 max-sm:h-14 rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-800 via-purple-900 to-gray-900 flex items-center justify-center text-white shadow-[0_0_20px_rgba(124,77,255,0.9)] hover:shadow-[0_0_30px_rgba(124,77,255,1)] transition-all duration-300"
           aria-label="Open chat"
         >
+          {/* Premium internal texture/pattern */}
           <div className="absolute inset-0 rounded-full overflow-hidden">
-            <div className="absolute inset-0 bg-black opacity-20"></div>
-            <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 group-hover:animate-shimmer"></div>
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNCI+PHBhdGggZD0iTTAgMGgxMHYxMEgwek0yNCAwaDEwdjEwSDI0ek00OCAwaDEwdjEwSDQ4ek0xMiAxMmgxMHYxMEgxMnpNMzYgMTJoMTB2MTBIMzZ6TTAgMjRoMTB2MTBIMHpNMjQgMjRoMTB2MTBIMjR6TTQ4IDI0aDEwdjEwSDQ4ek0xMiAzNmgxMHYxMEgxMnpNMzYgMzZoMTB2MTBIMzZ6TTAgNDhoMTB2MTBIMHB4ek0yNCA0OGgxMHYxMEgyNHpNNDggNDhoMTB2MTBINDh6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-600/10 to-transparent"></div>
+            <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 group-hover:animate-shimmer"></div>
           </div>
+
+          {/* Icon */}
           <span className="relative z-10 flex items-center justify-center">
             {isOpen ? (
               <FiX size={26} className="text-white drop-shadow-lg" />
             ) : (
-              <>
+              <div className="relative">
                 <FiMessageSquare
                   size={24}
-                  className="text-white drop-shadow-lg"
+                  className="text-white drop-shadow-lg group-hover:text-[#f0c987] transition-colors"
                 />
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-lime-400 rounded-full animate-bounce"></span>
-              </>
+                {/* Green dot removed */}
+              </div>
             )}
           </span>
         </button>
 
-        {/* Text label that appears on hover */}
-        <div className="absolute -top-10 right-0 transform transition-all opacity-0 group-hover:opacity-100 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm font-medium shadow-lg border border-purple-500 whitespace-nowrap">
-          {isOpen ? "Close Chat" : "Ask AI Assistant"}
+        {/* Premium text label that appears on hover */}
+        <div className="absolute -top-12 right-0 transform transition-all opacity-0 group-hover:opacity-100 bg-gradient-to-r from-gray-900 to-purple-900 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-[0_0_15px_rgba(124,77,255,0.5)] border border-[#f0c987]/30 whitespace-nowrap backdrop-blur-sm">
+          <div className="absolute top-full right-5 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] border-l-transparent border-r-transparent border-t-purple-900"></div>
+          <span className="bg-gradient-to-r from-white to-[#f0c987] bg-clip-text text-transparent font-semibold">
+            {isOpen ? "Close Chat" : "Ask AI Assistant"}
+          </span>
         </div>
       </div>
 
